@@ -35,15 +35,19 @@ main {
   color: white;
 }
 
-/***DIsplay navigation in flex 
+/***DIsplay navigation in block 
   direction with no decoration *****/
 
 nav ul {
-  display: flex;
+  display: block;
   list-style: none;
   margin: 15px;
   margin-left: -40px;
 }
+nav li:active{
+  background-color: chocolate;
+}
+
 li {
   background-color: black;
   color: rgb(255, 255, 255);
