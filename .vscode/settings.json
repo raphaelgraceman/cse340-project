@@ -1,5 +1,21 @@
 {
     "cSpell.words": [
         "Dotse"
+    ],
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "cse340-project",
+            "database": "cse340_47hd",
+            "username": "cse340rd",
+            "connectString": "postgresql://cse340rd:93ZfN6JvzAAYqUvAnH2SFiHmUqPV3oQ4@dpg-d0gvlbi4d50c7389me3g-a.oregon-postgres.render.com/cse340_47hd"
+        }
     ]
 }
