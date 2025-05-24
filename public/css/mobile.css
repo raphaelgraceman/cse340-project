@@ -61,6 +61,9 @@ li {
 }
 
 /** Body stylings ***/
+.bg {
+  display: none;
+}
 .hero-image img {
   width: 100%;
   height: auto;
