@@ -15,7 +15,7 @@ Util.getNav = async function (req, res, next) {
       row.classification_id +
       '" title="See our inventory of ' +
       row.classification_name +
-      ' vehicles">' +
+      ' Vehicles">' +
       row.classification_name +
       "</a>"
     list += "</li>"
@@ -34,13 +34,10 @@ Util.buildClassificationGrid = async function(data){
     grid = '<ul id="inv-display">'
     data.forEach(vehicle => { 
       grid += '<li>'
-      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
-      + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
-      + 'details"><img src="' + vehicle.inv_thumbnail 
-      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
-      +' on CSE Motors" /></a>'
+      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id + '" title="View ' + vehicle.inv_make + 
+        ''+ vehicle.inv_model + 'details"><img src="' + vehicle.inv_thumbnail +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model +' on CSE Motors"></a>'
       grid += '<div class="namePrice">'
-      grid += '<hr />'
+      grid += ''
       grid += '<h2>'
       grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
       + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
@@ -72,38 +69,28 @@ Util.handleErrors = (fn) => (req, res, next) =>
 /*******Building the vehicle details to be wrapped in HTML into the view ***** */
 Util.buildVehicleDetailsGrid = function (vehicleInfo) {
   let vehicleHTML = '<div class="inv-display">';
-  vehicleHTML += `
-  <div id="detailHeader">
+    vehicleHTML += `
+    <div id="detailHeader"> 
       <h2>
-          <a href="../../inv/detail/${vehicleInfo.inv_id}" title="View ${vehicleInfo.inv_make} ${vehicleInfo.inv_model} details">
-              ${vehicleInfo.inv_make} ${vehicleInfo.inv_model}
-          </a>
+        ${vehicleInfo.inv_year} ${vehicleInfo.inv_make} ${vehicleInfo.inv_model}
       </h2>
-      <span>$${new Intl.NumberFormat('en-US').format(vehicleInfo.inv_price)}</span>
-  </div>
+    </div>
 
-  <div id="detailsLeft">
-      <a href="../../inv/detail/${vehicleInfo.inv_id}" title="View ${vehicleInfo.inv_make} ${vehicleInfo.inv_model} details">
-          <img src="${vehicleInfo.inv_image}" alt="Image of ${vehicleInfo.inv_make} ${vehicleInfo.inv_model} on CSE Motors">
-      </a>
-  </div>
+    <div id="detailsLeft">
+      <img src="${vehicleInfo.inv_image}" alt="Image of ${vehicleInfo.inv_make} ${vehicleInfo.inv_model} on CSE Motors">
+    </div>
 
-  <div id="detailsRight">
-      <ul id="detailsList">
-          <li><span> Price: $${new Intl.NumberFormat("en-US").format(vehicleInfo.inv_price)}</span></li>
-          <li><span> Description: ${vehicleInfo.inv_description} </span></li>
-          <li><span> Color: ${vehicleInfo.inv_color} </span></li>
-          <li><span> Miles: ${vehicleInfo.inv_miles} </span></li>
-      </ul>
-      
-      <!-- Add to Cart Form -->
-      <form action="/cart/cart-view" method="POST" style="margin-top: 20px;">
-          <input type="hidden" name="inv_id" value="${vehicleInfo.inv_id}">
-          <label for="quantity">Quantity:</label>
-          <input type="number" name="quantity" id="quantity" value="1" min="1" required>
-          <button type="submit">Add to Cart</button>
-      </form>
-  </div>
+    <div id="detailsRight">
+      <h3> ${vehicleInfo.inv_make} ${vehicleInfo.inv_model} Details </h3>
+      <ul><li><h4> Price: $${new Intl.NumberFormat("en-US").format(vehicleInfo.inv_price)}</h4></li></ul>
+      <ul><li><h4 style="display: inline;">Description: </h4> ${vehicleInfo.inv_description}</li></ul>
+      <ul><li><h4 style="display: inline;">Color: </h4> ${vehicleInfo.inv_color}</li></ul>
+      <ul><li><h4 style="display: inline;">Miles: </h4>  ${vehicleInfo.inv_miles}</li></ul>
+
+    
+
+    
+    </div>
   </div>`;
   return vehicleHTML;
 };

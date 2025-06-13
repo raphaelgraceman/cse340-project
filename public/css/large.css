@@ -41,13 +41,9 @@
        background-image: url("../images/site/small_check.jpg");
     /* Full height */
     height: 100%;
-
-    /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
-    font-family: Arial, Helvetica, sans-serif;
     height: auto;
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
@@ -123,8 +119,37 @@
   .hero-overlay-text h2 {
     margin-bottom: 0px;
   }
-  .vehicle-image,
-  .vehicle-details {
-    width: 100%;
+  
+  /*******Classification Grid view ***/
+  #inv-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
   }
+  #inv-display li{
+    list-style: none;
+    background-color: rgb(255, 255, 255);
+    color: black;
+    margin-bottom: 30px;
+    margin-top: -20px;
+  }
+  #inv-display li h2{
+    border-top: 4px solid rgb(2, 14, 40);
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+
+   /**** Vehicle detail view Info Styles ***/
+  .inv-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  #detailHeader {
+    grid-column: 1/3;
+    margin-left: 20px;
+    font-size: large;
+    font-style: italic;
+    margin-bottom: 80px;
+    
+  }
+
 }
