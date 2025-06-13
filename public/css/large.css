@@ -123,5 +123,8 @@
   .hero-overlay-text h2 {
     margin-bottom: 0px;
   }
-
+  .vehicle-image,
+  .vehicle-details {
+    width: 100%;
+  }
 }

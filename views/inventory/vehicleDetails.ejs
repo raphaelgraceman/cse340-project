@@ -1,0 +1,10 @@
+<!---View heading-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+} %>
+
+<!--Display vehicle items in Grid View-->
+<%- vehicleHtml %>
+

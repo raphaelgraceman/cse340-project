@@ -69,4 +69,42 @@ Util.handleErrors = (fn) => (req, res, next) =>
 .catch(next);
 
 
+/*******Building the vehicle details to be wrapped in HTML into the view ***** */
+Util.buildVehicleDetailsGrid = function (vehicleInfo) {
+  let vehicleHTML = '<div class="inv-display">';
+  vehicleHTML += `
+  <div id="detailHeader">
+      <h2>
+          <a href="../../inv/detail/${vehicleInfo.inv_id}" title="View ${vehicleInfo.inv_make} ${vehicleInfo.inv_model} details">
+              ${vehicleInfo.inv_make} ${vehicleInfo.inv_model}
+          </a>
+      </h2>
+      <span>$${new Intl.NumberFormat('en-US').format(vehicleInfo.inv_price)}</span>
+  </div>
+
+  <div id="detailsLeft">
+      <a href="../../inv/detail/${vehicleInfo.inv_id}" title="View ${vehicleInfo.inv_make} ${vehicleInfo.inv_model} details">
+          <img src="${vehicleInfo.inv_image}" alt="Image of ${vehicleInfo.inv_make} ${vehicleInfo.inv_model} on CSE Motors">
+      </a>
+  </div>
+
+  <div id="detailsRight">
+      <ul id="detailsList">
+          <li><span> Price: $${new Intl.NumberFormat("en-US").format(vehicleInfo.inv_price)}</span></li>
+          <li><span> Description: ${vehicleInfo.inv_description} </span></li>
+          <li><span> Color: ${vehicleInfo.inv_color} </span></li>
+          <li><span> Miles: ${vehicleInfo.inv_miles} </span></li>
+      </ul>
+      
+      <!-- Add to Cart Form -->
+      <form action="/cart/cart-view" method="POST" style="margin-top: 20px;">
+          <input type="hidden" name="inv_id" value="${vehicleInfo.inv_id}">
+          <label for="quantity">Quantity:</label>
+          <input type="number" name="quantity" id="quantity" value="1" min="1" required>
+          <button type="submit">Add to Cart</button>
+      </form>
+  </div>
+  </div>`;
+  return vehicleHTML;
+};
 module.exports = Util
