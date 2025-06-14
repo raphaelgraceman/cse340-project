@@ -4,3 +4,29 @@
 *:after {
   box-sizing: border-box;
 }
+
+form {
+  width: 100%;
+  margin-left: 10%;
+  color: white;
+  background-color: rgb(18, 18, 46);
+}
+fieldset{
+  width: 90%;
+}
+
+
+@media only screen and (min-width: 600px) {
+    form {
+        margin-left: 20%;
+        color: white;
+    }
+    label {
+        display: block; 
+        margin-bottom: 5px; 
+    }
+    input{
+        width: 85%;
+    }
+}
+

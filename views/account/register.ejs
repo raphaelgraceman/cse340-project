@@ -1,0 +1,37 @@
+<h1><%= title %></h1>
+
+
+<!-- Registration forms-->
+<fieldset>
+  <form action="/account/register" method="post" style="margin-left: 0%;">
+    <label for="account_firstname">First Name:</label>
+    <input type="text" name="account_firstname" id="account_firstname" required value="<%= locals.account_firstname %>"><br><br>
+
+    <label for="account_lastname">Last Name:</label>
+    <input type="text" name="account_lastname" id="account_lastname" required value="<%= locals.account_lastname %>"><br><br>
+
+    <label for="account_email">Email:</label>
+    <input
+        type="email"
+        name="account_email"
+        placeholder="Enter a valid email address"
+        id="account_email"
+        required
+    ><br><br>
+    
+    <label for="account_password">Password:</label>
+    <input
+        type="password"
+        name="account_password"
+        placeholder="Must contain 1 special character, number and uppercase"
+        id="account_password"
+        required
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+    ><br><br>
+
+    <button type="submit" id="submitBtn" style=" margin-left: 25%; background-color: white; width: 30%; color: black; border-radius: 12px; padding: 2px; cursor: pointer; ">Register</button>
+    <p id="registerAccountText">Already have account? <a id="registerAccount" href="/account/login">Login</a></p>
+</form>
+</fieldset>
+
+
