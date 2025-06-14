@@ -1,5 +1,13 @@
 <h1><%= title %></h1>
 
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
 
 <!-- Registration forms-->
 <fieldset>
@@ -20,10 +28,11 @@
     ><br><br>
     
     <label for="account_password" style="color: black;">Password:</label>
+    <span style="color: black;  font-size: 12px; font: lighter; margin-left: 6%;">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
     <input
         type="password"
         name="account_password"
-        placeholder="Must contain 1 special character, number and uppercase"
+        placeholder="Must be 12, contain 1 special character, a number and an uppercase"
         id="account_password"
         required
         pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
