@@ -13,7 +13,13 @@ form {
 fieldset{
   width: 90%;
 }
-
+.invInputs {
+  border-radius: 12px;
+  margin-left: 10%;
+}
+#invForm label {
+  margin-left: 10%;
+}
 input:required:invalid, input:focus:invalid {
   color: red;
   border-left: 5px solid red;
@@ -37,3 +43,7 @@ input:required:valid {
     }
 }
 
+/****Flash****/
+.notice  {
+  columns: black;
+}

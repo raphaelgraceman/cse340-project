@@ -85,13 +85,29 @@ Util.buildVehicleDetailsGrid = function (vehicleInfo) {
       <ul><li><h4> Price: $${new Intl.NumberFormat("en-US").format(vehicleInfo.inv_price)}</h4></li></ul>
       <ul><li><h4 style="display: inline;">Description: </h4> ${vehicleInfo.inv_description}</li></ul>
       <ul><li><h4 style="display: inline;">Color: </h4> ${vehicleInfo.inv_color}</li></ul>
-      <ul><li><h4 style="display: inline;">Miles: </h4>  ${vehicleInfo.inv_miles}</li></ul>
-
-    
-
-    
+      <ul><li><h4 style="display: inline;">Miles: </h4> ${new Intl.NumberFormat("en-US").format(vehicleInfo.inv_miles)} </li></ul>
     </div>
   </div>`;
   return vehicleHTML;
 };
+
+/***Add Inventory Form Classification Selection List */
+Util.buildClassificationList = async function (classification_id = null) {
+    let data = await invModel.getClassifications()
+    let classificationList =
+      '<select name="classification_id" id="classificationList" required>'
+    classificationList += "<option value=''>Choose a Classification</option>"
+    data.rows.forEach((row) => {
+      classificationList += '<option value="' + row.classification_id + '"'
+      if (
+        classification_id != null &&
+        row.classification_id == classification_id
+      ) {
+        classificationList += " selected "
+      }
+      classificationList += ">" + row.classification_name + "</option>"
+    })
+    classificationList += "</select>"
+    return classificationList
+  }
 module.exports = Util

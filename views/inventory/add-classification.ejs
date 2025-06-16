@@ -1,0 +1,29 @@
+<h1><%= title %></h1>
+
+<%- messages() %>
+
+
+<form action="/inv/add-classification" method="post" style="max-width: 90%;" id="classificationForm" onsubmit="validateResult"
+    >
+    <p style="color: black; text-align: justify; font-size: 18px;">A new classification name cannot contain a space or special character of any kind.</p>
+    <label for="classification_name" style="color: black; font: bolder;">Classification Name:</label>
+    <input
+        type="text"
+        name="classification_name"
+        id="classification_name"
+        required
+        style="width: 70%;"
+    /><br><br>
+    <button type="submit" id="submitBtn" style=" margin-left: 20%; background-color: rgb(17, 0, 255); width: 30%; color: rgb(255, 255, 255); border-radius: 12px; padding: 2px; cursor: pointer; ">Add</button>
+</form>
+
+<script>
+    document.getElementById('classificationForm').addEventListener('submit', function(e) {
+        const input = document.getElementById('classificationName').value;
+        const regex = /^[a-zA-Z0-9]+$/;
+        if (!regex.test(input)) {
+            e.preventDefault();
+            alert('Classification name cannot contain spaces or special characters.');
+        }
+    });
+</script>

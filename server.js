@@ -31,16 +31,16 @@ const bodyParser = require("body-parser")
   saveUninitialized: true,
   name: 'sessionId',
 }))
-//Allows to detect and collect data from client
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+//Allows to detect and collect data from client
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
 
 
 /*

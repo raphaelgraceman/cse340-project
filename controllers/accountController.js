@@ -6,7 +6,7 @@ const accountModel = require("../models/account-model");
 * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav()
-      req.flash("notice", "Sorry, Welcome.")
+      req.flash("notice", "Welcome!")
   res.render("account/login", {
     title: "Login",
     nav,
@@ -42,7 +42,7 @@ async function registerAccount(req, res) {
   if (regResult) {
     req.flash(
       "notice",
-      `Congratulations, you\'re registered ${account_firstname}. Please log in.`
+      `Congratulations, you're registered ${account_firstname}. Please log in.`
     )
     res.status(201).render("account/login", {
       title: "Login",
