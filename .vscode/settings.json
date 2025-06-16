@@ -1,7 +1,10 @@
 {
     "cSpell.words": [
         "Dotse",
-        "getclassificationsbyid"
+        "firstname",
+        "getclassificationsbyid",
+        "lastname",
+        "loggedin"
     ],
     "sqltools.connections": [
         {

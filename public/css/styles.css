@@ -4,10 +4,16 @@
 *:after {
   box-sizing: border-box;
 }
-
+#loginFieldset {
+    background-color: rgb(18, 18, 46); 
+    border-radius: 12px; 
+    border: 3px solid rgb(165, 241, 165); 
+    padding: 4px;
+  }
 form {
-  width: 100%;
-  margin-left: 10%;
+  align-content: center;
+  width: 75%;
+  margin-left: 8%;
   color: white;
 }
 fieldset{
@@ -18,7 +24,7 @@ fieldset{
   margin-left: 10%;
 }
 #invForm label {
-  margin-left: 10%;
+  margin-left: 8%;
 }
 input:required:invalid, input:focus:invalid {
   color: red;
@@ -28,22 +34,34 @@ input:required:valid {
   color: green;
   border-left: 5px solid green;
 }
-
-@media only screen and (min-width: 600px) {
-    form {
-        margin-left: 20%;
-        color: white;
-    }
-    label {
-        display: block; 
-        margin-bottom: 5px; 
-    }
-    input{
-        width: 85%;
-    }
-}
-
 /****Flash****/
-.notice  {
-  columns: black;
+.notice, #message {
+  color: black;
+  background-color: white;
 }
+@media only screen and (min-width: 992px) {
+  form {
+      margin-left: 15%;
+      color: white;
+  }
+  label {
+      display: block; 
+      margin-bottom: 5px; 
+  }
+  input{
+      width: 70%;
+  }
+  #loginForm{
+    margin-left: 23%; 
+    margin-right: 15px; 
+  }
+
+  #loginFieldset {
+    background-color: rgb(18, 18, 46); 
+    width: 70%; border-radius: 12px; 
+    border: 3px solid rgb(165, 241, 165); 
+    padding: 4px;
+  }
+}
+
+

@@ -1,0 +1,44 @@
+<h1><%= title %></h1>
+
+<%- message %>
+
+
+<form action="/inv/update" method="post" style="margin-left: 10%; margin-right: 10%; width:auto; background-color: rgb(3, 42, 45);" id="invForm">
+  <fieldset style="width: 100%;">
+    <label for="classification_id" style="margin-left: 35%; margin-top: 20px;" id="classificationSelect"
+    >Classification: <%- classificationSelect %></label><br>
+
+    <label for="inv_make">Make:</label>
+    <input type="text" name="inv_make" id="inv_make" required class="invInputs"/><br><br>
+
+    <label for="inv_model">Model:</label>
+    <input type="text" name="inv_model" id="inv_model" required class="invInputs"/><br><br>
+
+    <label for="inv_description" >Description:</label>
+    
+    <input type="text" name="inv_description" id="inv_description" required  style="height: 80px;" required class="invInputs"/><br><br>
+
+    <label for="inv_image">Image URL:</label>
+    <input type="text" name="inv_image" id="inv_image" class="invInputs"/><br><br>
+
+    <label for="inv_thumbnail">Thumbnail:</label>
+    <input type="text" name="inv_thumbnail" id="inv_thumbnail" required class="invInputs"/><br><br>
+
+    <label for="inv_price">Price:</label>
+    <input type="text" name="inv_price" id="inv_price" required class="invInputs" /><br><br>
+
+    <label for="inv_year">Year:</label>
+    <input type="text" name="inv_year" id="inv_year" required class="invInputs"/><br><br>
+
+    <label for="inv_miles">Miles:</label>
+    <input type="text" name="inv_miles" id="inv_miles" required class="invInputs"/><br><br>
+
+    <label for="inv_color">Color:</label>
+    <input type="text" name="inv_color" id="inv_color" required class="invInputs" /><br><br>
+
+    <button type="hidden" name="inv_id" id="vehicleSubmitBtn" style="margin-left: 40%; background-color: rgb(99, 0, 0); width: 30%; color: rgb(255, 255, 255); border-radius: 12px; padding: 2px; cursor: pointer; " >Update Vehicle</button>
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+
+  </fieldset>
+</form>

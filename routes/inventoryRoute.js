@@ -4,7 +4,6 @@ const router = new express.Router()
 const invController = require("../controllers/invController")
 const utilities = require('../utilities');
 const Validator = require("../utilities/inventory-validator")
-const { validateInventory, checkUpdateData } = require('../utilities/inventory-validator');
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
@@ -12,7 +11,7 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 // Vehicle details route
 router.get("/detail/:id",  utilities.handleErrors(invController.buildByVehicleId));
 //Management view route
-router.get("/management", utilities.handleErrors(invController.buildInvManagementView));
+router.get("/", utilities.handleErrors(invController.buildInvManagementView));
 //addClassification view route
 router.get("/add-classification", utilities.handleErrors(invController.addClassificationView ));
 
@@ -31,4 +30,19 @@ router.post(
   Validator.checkInventoryData,
   utilities.handleErrors(invController.addInventory)
 );
+
+//get classification by id
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+
+// Routes to edit inventory items
+router.get("/inv/update/:id", utilities.handleErrors(invController.updateInventoryView));
+
+//Route to post inventory Data
+router.post("/update/:id", 
+  Validator.inventoryRules(), Validator.checkUpdateData, utilities.handleErrors(invController.updateInventory))
+
+router.get("/delete/:id", utilities.handleErrors(invController.deleteInventoryView))
+
+router.post("/inv/delete/:id", utilities.handleErrors(invController.deleteInventory))
 module.exports = router;

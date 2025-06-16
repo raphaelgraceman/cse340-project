@@ -124,24 +124,39 @@ validate.validateInventory = async (req, res, next) =>{
     // Basic validation checks
     if (!inv_make || !inv_model || !classification_id) {
         req.flash('error', 'All fields are required.');
-        return res.redirect('/inv/add-inventory'); // Redirect back to the form
+        return res.redirect('/inv/add-inventory');
     }
-    next(); // Proceed to the controller if validation passes
+    next(); 
 }
 
-
-//implementing validation to direct errors to the edit view
+/* ******************************
+ * Edit inventory data check...... check and direct errors to the update view
+ * ***************************** */
 validate.checkUpdateData = async (req, res, next) => {
-    const { inv_id, inv_make, inv_model, classification_id } = req.body;
-
-    // Basic validation checks
-    if (!inv_id || !inv_make || !inv_model || !classification_id) {
-        req.flash('error', 'All fields are required.');
-        return res.redirect('/inv/edit-inventory'); // Redirect back to the form
-    }
-
-    next(); // Proceed to the controller if validation passes
+  const { inv_make, inv_model, inv_description, inv_price, inv_year, inv_miles, inv_id} = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("inventory/update", {
+      errors,
+      title: "Update Inventory",
+      nav,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_id
+    })
+    return
+  }
+  next()
 }
+
+
+
 
 
 
