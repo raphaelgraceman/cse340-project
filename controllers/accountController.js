@@ -10,7 +10,6 @@ const bcrypt = require("bcryptjs")
 * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav()
-  
   res.render("account/login", {
     title: "Login",
     nav,
@@ -33,31 +32,47 @@ async function buildRegistrationView(req, res, next) {
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
-  let nav = await utilities.getNav()
-  const { account_firstname, account_lastname, account_email, account_password } = req.body
+  let nav = await utilities.getNav();
+  const { account_firstname, account_lastname, account_email, account_password } = req.body;
+
+  // Hash the password before storing
+  let hashedPassword;
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10);
+  } catch (error) {
+    req.flash("notice", "Sorry, there was an error processing the registration.");
+    res.status(500).render("account/register", {
+      title: "Registration",
+      nav,
+      errors: null,
+    });
+  }
 
   const regResult = await accountModel.registerAccount(
     account_firstname,
     account_lastname,
     account_email,
-    account_password
-  )
+    hashedPassword
+  );
 
   if (regResult) {
     req.flash(
       "notice",
-      `Congratulations, you're registered ${account_firstname}. Please log in.`
-    )
+      `Congratulations, you\'re registered ${account_firstname}. Please log in.`
+    );
     res.status(201).render("account/login", {
       title: "Login",
       nav,
-    })
+      errors: null
+    });
   } else {
-    req.flash("notice", "Sorry, the registration failed.")
+    req.flash("notice", "Sorry, the registration failed.");
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
-    })
+      errors: null
+    });
   }
 }
 
@@ -102,20 +117,18 @@ async function accountLogin(req, res) {
     throw new Error('Access Forbidden')
   }
 }
-
-
+ 
 
 /* ****************************************
 *  The Account Management view
 * *************************************** */
 async function accountManagementView(req, res, next) {
   let nav = await utilities.getNav();
-  res.render("/account/accManagement", {
+  res.render("account/accManagement", {
     title: "Account Management",
     nav,
     error: null,
   });
-   req.session.error = null;
-
-}  
+  req.session.error = null;
+}
 module.exports = { buildLogin, buildRegistrationView, registerAccount, accountLogin, accountManagementView}
