@@ -27,7 +27,7 @@ async function getInventoryByClassificationId(classification_id) {
 }
 
 /* Vehicle details by ID */
-async function getByVehicleId(inv_id)  {  
+async function getVehicleById(inv_id)  {  
   try {
     const vehicleInfo = await pool.query(
       "SELECT * FROM public.inventory AS i JOIN public.classification AS c ON i.classification_id = c.classification_id WHERE i.inv_id = $1",
@@ -128,4 +128,4 @@ async function updateInventory(
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getByVehicleId, addClassification, addNewInventory, updateInventory, deleteInventoryItem}
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, addClassification, addNewInventory, updateInventory, deleteInventoryItem}

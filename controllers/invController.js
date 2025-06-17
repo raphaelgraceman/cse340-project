@@ -24,7 +24,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
  * ************************** */
 invCont.buildByVehicleId = async (req, res) => {
   const vehicle_id = req.params.id;
-  const vehicleInfo = await invModel.getByVehicleId(vehicle_id);
+  const vehicleInfo = await invModel.getVehicleById(vehicle_id);
   const vehicleHtml = utilities.buildVehicleDetailsGrid(vehicleInfo);
   let nav = await utilities.getNav()
   res.render("./inventory/vehicleDetails", {
@@ -156,17 +156,16 @@ invCont.addInventory = async function (req, res, next) {
 /* ***************************
  *  Build edit inventory view
  * ************************** */
-invCont.updateInventoryView = async function (req, res, next) {
+invCont.updateInventoryView = async (req, res, next) => {
   const inv_id = parseInt(req.params.inv_id)
-  let nav = await utilities.getNav()
-  const itemData = await invModel.getInventoryById(inv_id)
+  const itemData = await invModel.getVehicleById(inv_id)
   const classificationSelect = await utilities.buildClassificationList(itemData.classification_id)
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+  let nav = await utilities.getNav()
   res.render("./inventory/update", {
     title: "Edit " + itemName,
     nav,
     classificationSelect: classificationSelect,
-    errors: null,
     inv_id: itemData.inv_id,
     inv_make: itemData.inv_make,
     inv_model: itemData.inv_model,
@@ -177,13 +176,14 @@ invCont.updateInventoryView = async function (req, res, next) {
     inv_price: itemData.inv_price,
     inv_miles: itemData.inv_miles,
     inv_color: itemData.inv_color,
-    classification_id: itemData.classification_id
+    classification_id: itemData.classification_id,
+    errors: null
   })
 }
 
 
-/* ***************************
- *  Return Inventory by Classification As JSON
+/* *************************** To display inventory items when a classification is selected 
+ *  Return Inventory by Classification As JSON (Before Edit or Delete)
  * ************************** */
 invCont.getInventoryJSON = async (req, res, next) => {
   const classification_id = parseInt(req.params.classification_id);
@@ -237,7 +237,7 @@ invCont.updateInventory = async function (req, res, next) {
     const classificationSelect = await utilities.buildClassificationList(classification_id)
     const itemName = `${inv_make} ${inv_model}`
     req.flash("notice", "Sorry, the insert failed.")
-    res.status(501).render("inventory/edit-inventory", {
+    res.status(501).render("inventory/update", {
     title: "Edit " + itemName,
     nav,
     classificationSelect: classificationSelect,
@@ -262,7 +262,7 @@ invCont.updateInventory = async function (req, res, next) {
 invCont.deleteInventoryView = async function (req, res, next) {
   const inv_id = parseInt(req.params.inv_id)
   let nav = await utilities.getNav()
-  const itemData = await invModel.getInventoryById(inv_id)
+  const itemData = await invModel.getVehicleById(inv_id)
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inventory/delete", {
     title: "Delete " + itemName,

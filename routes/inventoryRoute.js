@@ -36,7 +36,7 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 
 
 // Routes to edit inventory items
-router.get("/update", utilities.handleErrors(invController.updateInventoryView));
+router.get("/inv/update/:id", utilities.handleErrors(invController.updateInventoryView));
 
 //Route to post inventory Data
 router.post("/update/:id", 
