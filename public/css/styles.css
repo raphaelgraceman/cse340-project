@@ -19,13 +19,7 @@ form {
 fieldset{
   width: 90%;
 }
-.invInputs {
-  border-radius: 12px;
-  margin-left: 10%;
-}
-#invForm label {
-  margin-left: 8%;
-}
+
 input:required:invalid, input:focus:invalid {
   color: red;
   border-left: 5px solid red;
@@ -34,6 +28,7 @@ input:required:valid {
   color: green;
   border-left: 5px solid green;
 }
+
 /****Flash****/
 .notice, #message {
   color: black;
@@ -62,6 +57,20 @@ input:required:valid {
     border: 3px solid rgb(165, 241, 165); 
     padding: 4px;
   }
+  .invInputs {
+    border-radius: 12px;
+    margin-left: 10%;
+  }
+  #invForm label {
+    margin-left: 10%;
+    margin-bottom: 0px;
+  }
+  #invForm input {
+    color: black;
+    display: inline;
+    text-align: justify;
+  }
 }
+
 
 
