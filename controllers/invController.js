@@ -104,11 +104,10 @@ invCont.addNewInventoryView = async function (req, res, next) {
   })
 }
 
-
 invCont.addInventory = async function (req, res, next) {
   let nav = await utilities.getNav();
-  const { 
-     inv_make,
+  const {
+    inv_make,
     inv_model,
     inv_description,
     inv_image,
@@ -117,27 +116,27 @@ invCont.addInventory = async function (req, res, next) {
     inv_year,
     inv_miles,
     inv_color,
-    classificationList
-  } = req.body; 
+    classification_id
+  } = req.body;
   const invResult = await invModel.addNewInventory(
-     inv_make,
-      inv_model,
-      inv_description,
-      inv_image,
-      inv_thumbnail,
-      inv_price,
-      inv_year,
-      inv_miles,
-      inv_color,
-      classificationList
-    );
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+    classification_id
+  );
   if (invResult) {
     req.flash(
       "notice",
       `Congratulations, you added ${inv_make} successfully`
     );
-    
-    return res.redirect('/inv'); 
+
+    return res.redirect("/inv");
 
   } else {
     req.flash("notice", "Sorry, failed to add inventory.");
@@ -146,7 +145,7 @@ invCont.addInventory = async function (req, res, next) {
       nav,
     });
   }
-}
+};
 
 
 /* ***************************
