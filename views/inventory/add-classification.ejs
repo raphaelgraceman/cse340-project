@@ -1,10 +1,17 @@
 <h1><%= title %></h1>
 
-<%- messages() %>
 
+<% if (messages) { %>
+  <div class="flash-messages">
+    <ul>
+      <% messages.forEach(msg => { %>
+        <li><%= msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
 
-<form action="/inv/add-classification" method="post" style="max-width: 90%;" id="classificationForm" onsubmit="validateResult"
-    >
+<form action="/inv/add-classification" method="post" style="max-width: 90%;" id="classificationForm"  >
     <p style="color: black; text-align: justify; font-size: 18px;">A new classification name cannot contain a space or special character of any kind.</p>
     <label for="classification_name" style="color: black; font: bolder;">Classification Name:</label>
     <input

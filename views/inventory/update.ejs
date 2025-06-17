@@ -4,9 +4,16 @@
 
 <form action="/inv/update/inv_id" method="post" style="margin-left: 10%; display: block; margin-right: 10%; width:auto; background-color: rgb(3, 42, 45);" id="invForm">
   <fieldset style="width: 100%;">
-    <label for="classification_id" style="margin-left: 2px 35%; margin-top: 20px; display: inline-block;" id="classificationSelect"
-    >Classification: <%- classificationSelect %>
-    </label><br><br>
+  
+    <label for="classification_id" style="margin-left: 2px 35%; margin-top: 20px; display: inline-block;" id="classificationSelect" >Choose a classification:</label>
+      <select id="classification_id" name="classification_name" id="classificationList">
+        <option value="classification_id">Custom</option>
+        <option value="classification_id">Sedan</option>
+        <option value="classification_id">Sport</option>
+        <option value="classification_id">SUV</option>
+        <option value="classification_id">Truck</option>
+      </select>
+
 
     <label for="inv_make">Make:</label>
     <input type="text" name="inv_make" id="inv_make" required class="invInputs" placeholder="<%= inv_make %>" value="<%= inv_make %>"><br><br>
@@ -19,7 +26,7 @@
     <textarea type="text" name="inv_description" id="inv_description" required  style="height: 80px; width: 90%;" required class="invInputs" value=""> <%=inv_description %></textarea><br><br>
     
     <label for="inv_image">Image URL:</label>
-    <input type="text" name="inv_image" id="inv_image" class="invInputs" value="<%= inv_image %>"><br><br><br>
+    <input type="url" name="inv_image" id="inv_image" class="invInputs" placeholder="inv_image" value="<%= inv_image %>" required><br><br><br>
 
     <label for="inv_thumbnail">Thumbnail:</label>
     <input type="text" name="inv_thumbnail" id="inv_thumbnail" required class="invInputs" value="<%= inv_thumbnail %>"><br><br><br>
@@ -31,7 +38,7 @@
     <input type="text" name="inv_year" id="inv_year" required class="invInputs" value="<%= inv_year %>"><br><br><br>
 
     <label for="inv_miles">Miles:</label>
-    <input type="text" name="inv_miles" id="inv_miles" required class="invInputs" value="<%= inv_miles %>"><br><br><br>
+    <input type="number" name="inv_miles" id="inv_miles" required class="invInputs" value="<%= inv_miles %>"><br><br><br>
 
     <label for="inv_color">Color:</label>
     <input type="text" name="inv_color" id="inv_color" required class="invInputs" value="<%= inv_color %>"><br><br><br>
