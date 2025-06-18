@@ -209,6 +209,7 @@ invCont.updateInventory = async function (req, res, next) {
     inv_year,
     inv_miles,
     inv_color,
+    classification_id,
   } = req.body
   const updateResult = await invModel.updateInventory(
     inv_id,  
