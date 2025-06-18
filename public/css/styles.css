@@ -4,6 +4,9 @@
 *:after {
   box-sizing: border-box;
 }
+/** Warning **/
+
+
 #loginFieldset {
     background-color: rgb(18, 18, 46); 
     border-radius: 12px; 
@@ -69,6 +72,12 @@ input:required:valid {
     color: black;
     display: inline;
     text-align: justify;
+  }
+
+  /*** Warning Alert */
+  ul.message.warning {
+    color: red;
+    background-color: white;
   }
 }
 
