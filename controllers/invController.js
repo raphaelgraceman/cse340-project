@@ -197,7 +197,9 @@ invCont.getInventoryJSON = async (req, res, next) => {
  *  Process Update Inventory Data
  * ************************** */
 invCont.updateInventory = async function (req, res, next) {
-  let nav = await utilities.getNav()
+  let nav = await utilities.getNav();
+
+  // Destructure and sanitize inputs
   const {
     inv_id,
     inv_make,
@@ -209,10 +211,17 @@ invCont.updateInventory = async function (req, res, next) {
     inv_year,
     inv_miles,
     inv_color,
-    classification_id,
-  } = req.body
+  } = req.body;
+
+  let classification_id = req.body.classification_id;
+  classification_id =
+    classification_id === "" || isNaN(parseInt(classification_id))
+      ? null
+      : parseInt(classification_id);
+const parsedInvId = Number.isInteger(parseInt(inv_id)) ? parseInt(inv_id) : null;
+
   const updateResult = await invModel.updateInventory(
-    inv_id,  
+    parsedInvId,
     inv_make,
     inv_model,
     inv_description,
@@ -223,35 +232,36 @@ invCont.updateInventory = async function (req, res, next) {
     inv_miles,
     inv_color,
     classification_id
-  )
+  );
 
   if (updateResult) {
-    const itemName = updateResult.inv_make + " " + updateResult.inv_model
-    req.flash("notice", `The ${itemName} was successfully updated.`)
-    res.redirect("/inv/")
+    const itemName = `${inv_make} ${inv_model}`;
+    req.flash("notice", `The ${itemName} was successfully updated.`);
+    res.redirect("/inv/");
   } else {
-    const classificationSelect = await utilities.buildClassificationList(classification_id)
-    const itemName = `${inv_make} ${inv_model}`
-    req.flash("notice", "Sorry, the insert failed.")
+    const classificationSelect = await utilities.buildClassificationList(classification_id);
+    const itemName = `${inv_make} ${inv_model}`;
+    req.flash("notice", "Sorry, the update failed. Please correct any errors and try again.");
     res.status(501).render("inventory/update", {
-    title: "Edit " + itemName,
-    nav,
-    classificationSelect: classificationSelect,
-    errors: null,
-    inv_id,
-    inv_make,
-    inv_model,
-    inv_year,
-    inv_description,
-    inv_image,
-    inv_thumbnail,
-    inv_price,
-    inv_miles,
-    inv_color,
-    classification_id
-    })
+      title: "Edit " + itemName,
+      nav,
+      classificationSelect,
+      errors: [{ msg: "Database update failed. Please try again." }],
+      inv_id: parsedInvId,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id
+    });
   }
-}
+};
+
 
 /* ***************************
  * Delete Inventory view * ***********            *************** */
