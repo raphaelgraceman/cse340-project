@@ -1,28 +1,26 @@
 <h1><%= title %></h1>
 
-<%- message %>
-
 
 <form action="/inv/delete/:id" method="post" style="margin-left: 10%; margin-right: 10%; width:auto; background-color: rgb(3, 42, 45);" id="invForm">
   <fieldset style="width: 100%;">
     
-    <input type="text" name="inv_make" id="inv_make" required class="invInputs"/><br><br>
+    <input type="text" name="inv_make" id="inv_make" required class="invInputs" value="<%= inv_model %>" readonly><br><br>
 
     <label for="inv_model">Model:</label>
-    <input type="text" name="inv_model" id="inv_model" required class="invInputs"/><br><br>
+    <input type="text" name="inv_model" id="inv_model" required class="invInputs" value="<%= inv_model %>" readonly><br><br>
 
  
     <label for="inv_price">Price:</label>
-    <input type="text" name="inv_price" id="inv_price" required class="invInputs" /><br><br>
+    <input type="text" name="inv_price" id="inv_price" required class="invInputs" value="<%= inv_model %>" readonly><br><br>
 
     <label for="inv_year">Year:</label>
-    <input type="text" name="inv_year" id="inv_year" required class="invInputs"/><br><br>
+    <input type="text" name="inv_year" id="inv_year" required class="invInputs" value="<%= inv_model %>" readonly><br><br>
 
-   <p>Confirm Deletion - The delete is permanent.</p>
+   <p style="margin-left: 33%; color: rgba(255, 119, 0, 0.96); font-size: large;">Delete is permanent, can't be reversed!</p>
 
-    <button type="hidden" name="inv_id" id="vehicleSubmitBtn" style="margin-left: 40%; background-color: rgb(99, 0, 0); width: 30%; color: rgb(255, 255, 255); border-radius: 12px; padding: 2px; cursor: pointer; " >Delete Vehicle</button>
-    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
-    <% } %>>
+    <button type="hidden" name="inv_id" id="vehicleSubmitBtn" style="margin-left: 30%; background-color: rgb(255, 0, 0); width: 30%; color: rgb(255, 255, 255); border-radius: 12px; padding: 2px; cursor: pointer; " 
+     <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %> >Confirm Delete Vehicle</button>
 
   </fieldset>
 </form>

@@ -32,10 +32,10 @@
     <textarea type="text" name="inv_description" id="inv_description" required  style="height: 80px; width: 90%;" required class="invInputs" value=""> <%=inv_description %></textarea><br><br>
     
       <label for="invImage">Image Path (url)</label>
-    <input class="invInputs" type="text" name="inv_image" id="invImage" size="30" required <% if(locals.inv_image) { %> value="<%= locals.inv_image %>" <% } else { %> value="/images/vehicles/no-image.png" <% } %>>
+    <input class="invInputs" type="text" name="inv_image" id="invImage" size="30" required <% if(locals.inv_image) { %> value="<%= locals.inv_image %>" <% } else { %> value="/images/vehicles/no-image.png" <% } %>><br><br><br>
 
     <label for="invThumbnail">Thumbnail Path</label>
-    <input class="invInputs" type="text" name="inv_thumbnail" id="invThumbnail" size="30" required <% if(locals.inv_image) { %> value="<%= locals.inv_image %>" <% } else { %> value="/images/vehicles/no-image-tn.png" <% } %>>
+    <input class="invInputs" type="text" name="inv_thumbnail" id="invThumbnail" size="30" required <% if(locals.inv_image) { %> value="<%= locals.inv_image %>" <% } else { %> value="/images/vehicles/no-image-tn.png" <% } %>><br><br><br>
 
     <label for="inv_price">Price:</label>
     <input type="text" name="inv_price" id="inv_price" required class="invInputs" value="<%= inv_price %>"><br><br><br>

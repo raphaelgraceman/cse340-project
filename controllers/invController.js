@@ -286,37 +286,54 @@ invCont.deleteInventoryView = async function (req, res, next) {
 
 //Process Delete inventory Data ************* */
 invCont.deleteInventory = async function (req, res, next) {
-  let nav = await utilities.getNav()
-  const {
-    inv_id, inv_make, inv_model,
-    inv_price, inv_year,  classification_id,
-  } = req.body
-  const deleteResult = await invModel.updateInventory(
-    inv_id,  inv_make, inv_model, inv_price, inv_year, classification_id
-  )
+  let nav = await utilities.getNav();
 
-  if (deleteResult) {
-    const itemName = deleteResult.inv_make + " " + deleteResult.inv_model
-    req.flash("notice", `The ${itemName} was successfully updated.`)
-    res.redirect("/inv/")
-  } else {
-    const classificationSelect = await utilities.buildClassificationList(classification_id)
-    const itemName = `${inv_make} ${inv_model}`
-    req.flash("notice", "Sorry, the delete failed.")
-    res.status(501).render("inventory/delete", {
-    title: "Edit " + itemName,
-    nav,
-    classificationSelect: classificationSelect,
-    errors: null,
+  const {
     inv_id,
     inv_make,
     inv_model,
-    inv_year,
     inv_price,
-    classification_id
-    })
+    inv_year,
+    classification_id,
+  } = req.body;
+
+  const parsedInvId = parseInt(inv_id);
+
+  if (isNaN(parsedInvId)) {
+    req.flash("notice", "Invalid vehicle ID. Delete failed.");
+    return res.redirect("/inv/");
   }
-}
+
+  try {
+    const deleteResult = await invModel.deleteInventoryItem(parsedInvId);
+
+    if (deleteResult) {
+      const itemName = `${inv_make} ${inv_model}`;
+      req.flash("notice", `The ${itemName} was successfully deleted.`);
+      res.redirect("/inv/");
+    } else {
+      const classificationSelect = await utilities.buildClassificationList(classification_id);
+      const itemName = `${inv_make} ${inv_model}`;
+      req.flash("notice", "Sorry, the delete failed.");
+      res.status(501).render("inventory/delete", {
+        title: "Delete " + itemName,
+        nav,
+        classificationSelect,
+        errors: null,
+        inv_id,
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_price,
+        classification_id,
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+
  
 module.exports = invCont
 

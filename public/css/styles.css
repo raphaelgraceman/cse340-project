@@ -34,8 +34,9 @@ input:required:valid {
 
 /****Flash****/
 .notice, #message {
-  color: black;
+  color: rgb(255, 0, 0);
   background-color: white;
+  margin-left: 20%;
 }
 @media only screen and (min-width: 992px) {
   form {
