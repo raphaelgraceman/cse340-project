@@ -174,7 +174,7 @@ async function getEmployeeDashboard(req, res, next) {
 
 
 //AllUsers view
-async function getUsersDashboard(req, res, next) {
+async function getUserDashboard(req, res, next) {
   try {
     const nav = await utilities.getNav();
     const accountData = req.session.accountData;
@@ -191,4 +191,4 @@ async function getUsersDashboard(req, res, next) {
 }
 
 
-module.exports = { buildLogin, buildRegistrationView, registerAccount, accountLogin, accountManagementView, getAdminDashboard, getEmployeeDashboard, getUsersDashboard}
+module.exports = { buildLogin, buildRegistrationView, registerAccount, accountLogin, accountManagementView, getAdminDashboard, getEmployeeDashboard, getUserDashboard}

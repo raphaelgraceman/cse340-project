@@ -32,21 +32,22 @@ router.post(
 // Route for Admins Only
 router.get(
   "/adminDashboard",
-  utilities.checkAccountType,
+  utilities.checkAccountTypeIsAdmin,
   utilities.handleErrors(accountController.getAdminDashboard)
 );
 // Route for Admins and Employees
 router.get(
   "/employeeDashboard",
-  utilities.checkAccountType, utilities.handleErrors(accountController.getEmployeeDashboard)
+  utilities.checkAccountTypeIsEmployee,
+  utilities.handleErrors(accountController.getEmployeeDashboard)
 );
 
 // Route for all Users
 router.get(
   "/userDashboard",
-  utilities.checkAccountType, utilities.handleErrors( accountController.getUserDashboard)
+  utilities.checkAccountTypeIsUser,
+  utilities.handleErrors( accountController.getUserDashboard)
 );
-
 
 
 module.exports = router;
