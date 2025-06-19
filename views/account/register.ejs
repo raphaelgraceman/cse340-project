@@ -10,8 +10,10 @@
 
 
 <!-- Registration forms-->
-<fieldset>
-  <form action="/account/register" method="post" style="margin-left: 0%; background-color: rgb(155, 213, 210);">
+ <p style="text-align: justify; margin-left: 15%;">Please fill the form below to register</p><br>
+
+<form action="/account/register" method="post" id="regForm" style=" background-color: rgb(155, 213, 210);">
+  <fieldset>
     <label for="account_firstname" style="color: black;">First Name:</label>
     <input type="text" name="account_firstname" id="account_firstname" required value="<%= locals.account_firstname %>"><br><br>
 
@@ -40,7 +42,8 @@
 
     <button type="submit" id="submitBtn" style=" margin-left: 25%; background-color: rgb(17, 0, 255); width: 30%; color: rgb(255, 255, 255); border-radius: 12px; padding: 2px; cursor: pointer; ">Register</button>
     <p id="registerAccountText" style="color: black;">Already have account? <a id="registerAccount" href="/account/login">Login</a></p>
+  </fieldset>
 </form>
-</fieldset>
+
 
 

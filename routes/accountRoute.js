@@ -2,8 +2,9 @@
 const express = require("express")
 const router = new express.Router() 
 const utilities = require("../utilities");
-const accountController =require('../controllers/accountController')
-const registrationValidate = require('../utilities/account-validation')
+const accountController = require('../controllers/accountController');
+const registrationValidate = require('../utilities/account-validation');
+const authenticated = require("../middlewares/authMiddleware");
 
 //Login view route
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
@@ -27,5 +28,26 @@ router.post(
   registrationValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
 )
+
+// Route for Admins Only
+router.get(
+  "/adminDashboard",
+  authenticated.checkLoginRole(["Admin"]),
+  utilities.handleErrors(accountController.getAdminDashboard)
+);
+
+// Route for Admins and Employees
+router.get(
+  "/employee-dashboard",
+  authenticated.checkLoginRole(["Admin", "Employee"]), utilities.handleErrors(accountController.getEmployeeDashboard)
+);
+
+// Route for all Users
+router.get(
+  "/user-dashboard",
+  authenticated.checkLoginRole(["Admin", "Employee", "Client"]), utilities.handleErrors( accountController.getUserDashboard)
+);
+
+
 
 module.exports = router;

@@ -59,7 +59,7 @@ async function registerAccount(req, res) {
   if (regResult) {
     req.flash(
       "notice",
-      `Congratulations, you\'re registered ${account_firstname}. Please log in.`
+      `Congratulations! You're registered ${account_firstname.toLowerCase()}, please log in.`
     );
     res.status(201).render("account/login", {
       title: "Login",
@@ -76,37 +76,40 @@ async function registerAccount(req, res) {
   }
 }
 
- /* ****************************************
+/* ****************************************
  *  Process login request
  * ************************************ */
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
+
   const { account_email, account_password } = req.body
   const accountData = await accountModel.getAccountByEmail(account_email)
+
   if (!accountData) {
     req.flash("notice", "Please check your credentials and try again.")
-    res.status(400).render("account/login", {
+    return res.status(400).render("account/login", {
       title: "Login",
       nav,
       errors: null,
       account_email,
     })
-    return
-  }
-  try {
+  } try {
     if (await bcrypt.compare(account_password, accountData.account_password)) {
       delete accountData.account_password
-      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
-      if(process.env.NODE_ENV === 'development') {
-        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
-      } else {
-        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, {expiresIn: 3600 * 1000})
+      const cookieType = {httpOnly: true, maxAge: 3600 * 1000, secure: process.env.NODE_ENV !== 'development',}
+      res.cookie("jwt", accessToken, cookieType)
+      switch (accountData.account_type) {
+        case 'Admin':
+          return res.redirect("/adminDashboard")
+        case 'Employee':
+          return res.redirect("/employeeDashboard")
+        default:
+          return res.redirect("/userDashboard")
       }
-      return res.redirect("/account/")
-    }
-    else {
-      req.flash("message notice", "Please check your credentials and try again.")
-      res.status(400).render("account/login", {
+    } else {
+      req.flash("notice", "Please check your credentials and try again.")
+      return res.status(400).render("account/login", {
         title: "Login",
         nav,
         errors: null,
@@ -114,10 +117,11 @@ async function accountLogin(req, res) {
       })
     }
   } catch (error) {
-    throw new Error('Access Forbidden')
+    console.error("Login error:", error)
+    res.status(403).send("Access Forbidden")
   }
 }
- 
+
 
 /* ****************************************
 *  The Account Management view
@@ -131,4 +135,60 @@ async function accountManagementView(req, res, next) {
   });
   req.session.error = null;
 }
-module.exports = { buildLogin, buildRegistrationView, registerAccount, accountLogin, accountManagementView}
+
+//Admin dashboard
+async function getAdminDashboard(req, res, next) {
+  try {
+    const nav = await utilities.getNav();
+    const accountData = req.session.accountData;
+    const allUsers = await accountModel.getAllAccounts(); 
+
+    res.render("account/adminDashboard", {
+      title: "Admin Dashboard",
+      nav,
+      accountData,
+      users: allUsers,
+    });
+  } catch (error) {
+    next(error); 
+  }
+}
+
+//Employee view
+async function getEmployeeDashboard(req, res, next) {
+  try {
+    const nav = await utilities.getNav();
+    const accountData = req.session.accountData;
+    const clients = await accountModel.getAccountsByType("Client");
+
+    res.render("account/employeeDashboard", {
+      title: "Employee Dashboard",
+      nav,
+      accountData,
+      users: clients,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+//AllUsers view
+async function getUsersDashboard(req, res, next) {
+  try {
+    const nav = await utilities.getNav();
+    const accountData = req.session.accountData;
+
+    res.render("account/userDashboard", {
+      title: "User Dashboard",
+      nav,
+      accountData,
+      user: accountData, 
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+module.exports = { buildLogin, buildRegistrationView, registerAccount, accountLogin, accountManagementView, getAdminDashboard, getEmployeeDashboard, getUsersDashboard}
