@@ -38,13 +38,13 @@ router.get(
 // Route for Admins and Employees
 router.get(
   "/employeeDashboard",
-  utilities.checkAccountType(["Admin", "Employee"]), utilities.handleErrors(accountController.getEmployeeDashboard)
+  utilities.checkAccountType, utilities.handleErrors(accountController.getEmployeeDashboard)
 );
 
 // Route for all Users
 router.get(
   "/userDashboard",
-  utilities.checkAccountType(["Admin", "Employee", "Client"]), utilities.handleErrors( accountController.getUserDashboard)
+  utilities.checkAccountType, utilities.handleErrors( accountController.getUserDashboard)
 );
 
 
