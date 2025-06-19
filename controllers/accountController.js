@@ -101,11 +101,11 @@ async function accountLogin(req, res) {
       res.cookie("jwt", accessToken, cookieType)
       switch (accountData.account_type) {
         case 'Admin':
-          return res.redirect("/adminDashboard")
+          return res.redirect("/account/adminDashboard")
         case 'Employee':
-          return res.redirect("/employeeDashboard")
+          return res.redirect("/account/employeeDashboard")
         default:
-          return res.redirect("/userDashboard")
+          return res.redirect("/account/userDashboard")
       }
     } else {
       req.flash("notice", "Please check your credentials and try again.")
@@ -174,7 +174,7 @@ async function getEmployeeDashboard(req, res, next) {
 
 
 //AllUsers view
-async function getUsersDashboard(req, res, next) {
+async function getUserDashboard(req, res, next) {
   try {
     const nav = await utilities.getNav();
     const accountData = req.session.accountData;
@@ -191,4 +191,4 @@ async function getUsersDashboard(req, res, next) {
 }
 
 
-module.exports = { buildLogin, buildRegistrationView, registerAccount, accountLogin, accountManagementView, getAdminDashboard, getEmployeeDashboard, getUsersDashboard}
+module.exports = { buildLogin, buildRegistrationView, registerAccount, accountLogin, accountManagementView, getAdminDashboard, getEmployeeDashboard, getUserDashboard}
