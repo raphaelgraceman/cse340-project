@@ -101,11 +101,11 @@ async function accountLogin(req, res) {
       res.cookie("jwt", accessToken, cookieType)
       switch (accountData.account_type) {
         case 'Admin':
-          return res.redirect("/adminDashboard")
+          return res.redirect("/account/adminDashboard")
         case 'Employee':
-          return res.redirect("/employeeDashboard")
+          return res.redirect("/account/employeeDashboard")
         default:
-          return res.redirect("/userDashboard")
+          return res.redirect("/account/userDashboard")
       }
     } else {
       req.flash("notice", "Please check your credentials and try again.")

@@ -172,6 +172,56 @@ Util.checkAccountType = (req, res, next) => {
 };
 
 
+//Checking User sign Type
+Util.checkAccountTypeIsAdmin = (req, res, next) => {
+  if (!req || !res || !res.locals) {
+    throw new Error("checkAccountType middleware called incorrectly.");
+  }
 
+  if (!res.locals.accountData) {
+    req.flash("notice", "You are not logged in.");
+    return res.redirect("/account/login");
+  }
+
+  if (res.locals.accountData.account_type === "Admin") {
+    return next();
+  } else {
+    req.flash("notice", "You are not authorized to view this page.");
+    return res.redirect("/account/login");
+  }
+};
+
+
+//Check if sign in is Admin
+Util.checkAccountTypeIsEmployee = (req, res, next) => {
+  if (!req || !res || !res.locals) {
+    throw new Error("checkAccountType middleware called incorrectly.");
+  }
+
+  if (!res.locals.accountData) {
+    req.flash("notice", "You are not logged in.");
+    return res.redirect("/account/login");
+  }
+
+  if (res.locals.accountData.account_type === "Employee") {
+    return next();
+  } else {
+    req.flash("notice", "You are not authorized to view this page.");
+    return res.redirect("/account/login");
+  }
+};
+
+Util.checkAccountTypeIsUser = (req, res, next) => {
+  if (!req || !res || !res.locals) {
+    throw new Error("checkAccountType middleware called incorrectly.");
+  }
+
+  if (!res.locals.accountData) {
+    req.flash("notice", "You are not logged in.");
+    return res.redirect("/account/login");
+  }
+
+  next();
+};
 
 module.exports = Util
