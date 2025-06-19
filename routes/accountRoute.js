@@ -32,20 +32,19 @@ router.post(
 // Route for Admins Only
 router.get(
   "/adminDashboard",
-  authenticated.checkLoginRole(["Admin"]),
+  utilities.checkAccountType,
   utilities.handleErrors(accountController.getAdminDashboard)
 );
-
 // Route for Admins and Employees
 router.get(
-  "/employee-dashboard",
-  authenticated.checkLoginRole(["Admin", "Employee"]), utilities.handleErrors(accountController.getEmployeeDashboard)
+  "/employeeDashboard",
+  utilities.checkAccountType(["Admin", "Employee"]), utilities.handleErrors(accountController.getEmployeeDashboard)
 );
 
 // Route for all Users
 router.get(
-  "/user-dashboard",
-  authenticated.checkLoginRole(["Admin", "Employee", "Client"]), utilities.handleErrors( accountController.getUserDashboard)
+  "/userDashboard",
+  utilities.checkAccountType(["Admin", "Employee", "Client"]), utilities.handleErrors( accountController.getUserDashboard)
 );
 
 

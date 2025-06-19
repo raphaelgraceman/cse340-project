@@ -149,5 +149,29 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
- 
+//Checking User sign Type
+Util.checkAccountType = (req, res, next) => {
+  if (!req || !res || !res.locals) {
+    throw new Error("checkAccountType middleware called incorrectly.");
+  }
+
+  if (!res.locals.accountData) {
+    req.flash("notice", "You are not logged in.");
+    return res.redirect("/account/login");
+  }
+
+  if (
+    res.locals.accountData.account_type === "Employee" ||
+    res.locals.accountData.account_type === "Admin"
+  ) {
+    return next();
+  } else {
+    req.flash("notice", "You are not authorized to view this page.");
+    return res.redirect("/account/login");
+  }
+};
+
+
+
+
 module.exports = Util
