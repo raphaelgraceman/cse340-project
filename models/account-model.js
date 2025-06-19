@@ -39,4 +39,40 @@ async function getAccountByEmail (account_email) {
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail}
+/* ***************************
+ *  Get all account type data
+ * ************************** */
+async function getAllAccounts() {
+  const result = await pool.query(
+    'SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account ORDER BY account_type, account_lastname'
+  );
+  return result.rows;
+}
+
+async function getAccountsByType(account_type) {
+  try {
+    const result = await pool.query(
+    'SELECT account_id, account_firstname, account_lastname, account_email FROM account WHERE account_type = $1 ORDER BY account_lastname',
+    [account_type]
+  );
+  return result.rows;
+
+  } catch (error) {
+    return new Error("No matching email found")
+  }
+}
+async function getAccountById(account_id) {
+  try {
+      const result = await pool.query(
+    'SELECT account_id, account_firstname, account_lastname, account_email, account_type FROM account WHERE account_id = $1',
+    [account_id]
+  );
+  return result.rows[0];
+
+  } catch (error) {
+    return new Error("No matching email found")
+  }
+}
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail,
+  getAllAccounts, getAccountsByType, getAccountById
+} //updateAccount, deleteUserAccount}

@@ -1,6 +1,13 @@
-<h1><%= title %></h1>
+<% if (title) {%>
+  <h1>
+    <%= title %>
+  </h1>
+<%} else {res.redirect('/')} %>
+
 
 <%- messages() %>
+
+
 
 <form id="loginForm" action="/account/login" method="post">
   <fieldset id="loginFieldset" >
