@@ -1,1 +1,13 @@
-<h1>hello</h1>
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { res.redirect('/') } %>
+
+<%- messages() %>
+
+<br><br>
+<h2>My Tasks</h2>
+<p>No tasks assigned yet.</p>
+
+<br><br>
+<a href="/account/update">Update My Profile</a><br>
+<a href="/account/logout" style="margin-left: 20px;">Logout</a>

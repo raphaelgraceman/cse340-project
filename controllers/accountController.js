@@ -172,18 +172,21 @@ async function getEmployeeDashboard(req, res, next) {
   }
 }
 
-
 //AllUsers view
 async function getUserDashboard(req, res, next) {
   try {
     const nav = await utilities.getNav();
     const accountData = req.session.accountData;
+    const { account_firstname, account_lastname, account_email, createdAt } = req.session
 
     res.render("account/userDashboard", {
       title: "User Dashboard",
       nav,
       accountData,
-      user: accountData, 
+      user: accountData,
+      account_firstname,
+      account_lastname, 
+      account_email,
     });
   } catch (error) {
     next(error);
@@ -191,4 +194,59 @@ async function getUserDashboard(req, res, next) {
 }
 
 
-module.exports = { buildLogin, buildRegistrationView, registerAccount, accountLogin, accountManagementView, getAdminDashboard, getEmployeeDashboard, getUserDashboard}
+// Logout view 
+async function getLogOutView(req, res, next) {
+  try {
+    const nav = await utilities.getNav();
+
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Logout error:", err);
+        return next(err);
+      }
+
+     res.clearCookie("connect.sid");  
+      req.flash("notice", "You have been successfully logged out.");  
+      res.render("/", {
+        title,
+        nav,
+        redirectDelay: 2000, 
+      });
+      
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+
+//Account delete view
+async function deleteAccountView (req, res, next) {
+  const account_id = parseInt(req.params.account_id)
+  let nav = await utilities.getNav()
+  const accountData = await accountModel.deleteUserAccount(account_id)
+  res.render("account/delete", {
+    title: "Delete User Account?",
+    nav,
+    errors: null,
+    accountData,
+  })
+}
+
+
+//Account Update View
+async function updateAccountView (req, res, next) {
+  const account_email = parseInt(req.params.account_email)
+  let nav = await utilities.getNav()
+  const accountData = await accountModel.getAccountByEmail(account_email )
+  const itemName = `${accountData.account_firstname} ${accountData.account_lastname}`
+  res.render("account/update", {
+    title: "Update" + itemName,
+    nav,
+    errors: null, 
+    accountData, 
+    account_email: accountData.account_email,  
+  })
+}
+
+module.exports = { buildLogin, getLogOutView, buildRegistrationView, registerAccount, accountLogin, accountManagementView, getAdminDashboard, getEmployeeDashboard, getUserDashboard, deleteAccountView, updateAccountView}

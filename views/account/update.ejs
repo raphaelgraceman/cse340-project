@@ -1,0 +1,35 @@
+<% if (title) {%>
+  <h1>
+    <%= title %>
+  </h1>
+<%} else {res.redirect('/')} %>
+
+<div class="warning">
+  <% if (errors && errors.length > 0) { %>
+    <ul class="message warning">
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>
+
+<form action="/account/update/account_id" method="post" style="margin-left: 10%; display: block; margin-right: 10%; width:auto; background-color: rgb(3, 42, 45);" id="invForm">
+  <fieldset style="width: 100%;">
+
+    <label for="account_firstname">First Name:</label>
+    <input type="text" name="account_firstname" id="account_firstname" required class="invInputs"  value="<%= account_firstname %>"><br><br>
+
+    <label for="account_lastname">Last Name:</label>
+    <input type="text" name="account_lastname" id="account_lastname" required class="invInputs" value="<%= account_lastname %>"><br><br>
+
+    <label for="account_email">Email:</label>
+    <input type="text" name="account_email" id="account_email" required class="invInputs" value="<%= account_email %>"><br><br><br>
+
+    <button type="hidden" name="inv_id" id="vehicleSubmitBtn" style="margin-left: 30%; background-color: rgb(99, 0, 0); width: 30%; color: rgb(255, 255, 255); border-radius: 12px; padding: 2px; cursor: pointer; "
+     <% if(locals.account_id) { %> value="<%= locals.account_id %>"
+    <% } %> >Update profile</button>
+   
+
+  </fieldset>
+</form>

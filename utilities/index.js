@@ -156,7 +156,7 @@ Util.checkAccountType = (req, res, next) => {
   }
 
   if (!res.locals.accountData) {
-    req.flash("notice", "You are not logged in.");
+    req.flash("notice", "Failed try again.");
     return res.redirect("/account/login");
   }
 
@@ -217,11 +217,32 @@ Util.checkAccountTypeIsUser = (req, res, next) => {
   }
 
   if (!res.locals.accountData) {
-    req.flash("notice", "You are not logged in.");
+    //req.flash("notice", "You are not logged in.");
     return res.redirect("/account/login");
   }
 
   next();
+};
+
+
+/*** Account_type Selection List */
+Util.buildAccountTypeList = async function (account_type = null) {
+  try {
+    const data = await accountModel.getAccountsByType();
+    let typeList = '<select name="type_id" id="typeList" required>';
+    typeList += "<option value=''>Choose Account Type</option>";
+
+    data.rows.forEach((row) => {
+      let selected = account_type && row.account_type === account_type ? " selected" : "";
+      typeList += `<option value="${row.account_type}"${selected}>${row.account_type}</option>`;
+    });
+
+    typeList += "</select>";
+    return typeList;
+  } catch (error) {
+    console.error("Error fetching account types:", error);
+    return "<p>Unable to load account types.</p>";
+  }
 };
 
 module.exports = Util

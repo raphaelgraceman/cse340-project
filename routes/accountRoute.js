@@ -49,5 +49,23 @@ router.get(
   utilities.handleErrors( accountController.getUserDashboard)
 );
 
+// Route for Logout
+router.get(
+  "/logout",
+  utilities.handleErrors(accountController.getLogOutView)
+);
+
+// Delete Route
+router.get(
+  "/delete",
+  utilities.handleErrors(accountController.deleteAccountView)
+);
+
+// Update Route
+router.get(
+  "/update",
+  utilities.handleErrors(accountController.updateAccountView)
+);
+
 
 module.exports = router;
