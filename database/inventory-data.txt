@@ -15,6 +15,18 @@ account_lastname: User
 account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r
 
+UPDATE public.account
+SET account_type = 'Admin'
+WHERE account_firstname = 'Manager' AND account_lastname = 'User';
+   
+UPDATE public.account
+SET account_type = 'Client'
+WHERE account_firstname = 'Basic' AND account_lastname = 'Client';
+
+UPDATE public.account
+SET account_type = 'Employee'
+WHERE account_firstname = 'Happy' AND account_lastname = 'Employee';
+
 
 
 

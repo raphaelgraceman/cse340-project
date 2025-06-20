@@ -149,29 +149,24 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
-//Checking User sign Type
+/* ****************************************
+ * Middleware to check for account type
+ **************************************** */
 Util.checkAccountType = (req, res, next) => {
-  if (!req || !res || !res.locals) {
-    throw new Error("checkAccountType middleware called incorrectly.");
-  }
-
   if (!res.locals.accountData) {
-    req.flash("notice", "Failed try again.");
+    req.flash("notice", "You are not logged in.");
     return res.redirect("/account/login");
   }
-
-  if (
-    res.locals.accountData.account_type === "Employee" ||
-    res.locals.accountData.account_type === "Admin"
+  if (res.locals.accountData.account_type == "Employee" ||
+    res.locals.accountData.account_type == "Admin"
   ) {
-    return next();
+    next();
   } else {
     req.flash("notice", "You are not authorized to view this page.");
     return res.redirect("/account/login");
   }
 };
-
-
+ 
 //Checking User sign Type
 Util.checkAccountTypeIsAdmin = (req, res, next) => {
   if (!req || !res || !res.locals) {
@@ -191,8 +186,6 @@ Util.checkAccountTypeIsAdmin = (req, res, next) => {
   }
 };
 
-
-//Check if sign in is Admin
 Util.checkAccountTypeIsEmployee = (req, res, next) => {
   if (!req || !res || !res.locals) {
     throw new Error("checkAccountType middleware called incorrectly.");
@@ -217,14 +210,12 @@ Util.checkAccountTypeIsUser = (req, res, next) => {
   }
 
   if (!res.locals.accountData) {
-    //req.flash("notice", "You are not logged in.");
+    req.flash("notice", "You are not logged in.");
     return res.redirect("/account/login");
   }
 
   next();
 };
-
-
 /*** Account_type Selection List */
 Util.buildAccountTypeList = async function (account_type = null) {
   try {
