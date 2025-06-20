@@ -1,0 +1,18 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { res.redirect('/') } %>
+
+<%-messages() %>
+
+<p>Are you sure you want to delete your account? This action cannot be reversed!</p>
+
+<form action="/account/delete" method="POST">
+  
+  <button type="submit" style="color: white; background-color: red; padding: 8px 16px; border: none; cursor: pointer;">
+    Account Delete to be continue.............
+  </button>
+</form>
+
+<br><br>
+<p>Cancel and go back to dashboard?</p>
+<a href="#">Back</a>

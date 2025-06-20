@@ -6,7 +6,9 @@
 }
 /** Warning **/
 
-
+h1 {
+  text-align: center;
+}
 #loginFieldset {
     background-color: rgb(18, 18, 46); 
     border-radius: 12px; 
@@ -36,7 +38,6 @@ input:required:valid {
 .notice, #message {
   color: rgb(255, 0, 0);
   background-color: white;
-  margin-left: 20%;
 }
 @media only screen and (min-width: 992px) {
   form {
@@ -79,6 +80,14 @@ input:required:valid {
   ul.message.warning {
     color: red;
     background-color: white;
+  }
+
+  /*Registration*/
+  #regForm{
+    margin-left: 8% auto;
+  }
+  #regForm input{
+    width: 100%;
   }
 }
 

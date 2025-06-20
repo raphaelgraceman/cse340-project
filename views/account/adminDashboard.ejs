@@ -1,0 +1,23 @@
+<% if (title) {%>
+  <h1>
+    <%= title %>
+  </h1>
+<%} else {res.redirect('/')} %>
+
+
+<%-messages() %>
+
+<h2>Account Management</h2>
+
+<a id="addUser" style="margin-right: 7px;" href="/account/register">Add User</a><br><br>
+<a id="updateUser"  href="#">Update User</a><br><br>
+<a id="deleteUser" href="/account/delete">Delete User</a>
+
+
+<br><br>
+<h2>Manage Inventory</h2>
+<a id="inventoryManagement" href="/inv">Inventory Management</a>
+
+<br><br><a href="/" style="margin-left: 20px;">Logout</a>
+
+

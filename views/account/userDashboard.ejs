@@ -1,0 +1,16 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { res.redirect('/') } %>
+
+<%= messages() %>
+
+
+<h2>Welcome!</h2>
+
+
+<br><br>
+
+<h2>Manage Account</h2>
+<a href="/account/update">Update Profile</a><br><br>
+<a href="/account/delete">Delete Account</a><br><br>
+<a href="/">Logout</a>

@@ -149,24 +149,28 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
-/* ****************************************
- * Middleware to check for account type
- **************************************** */
+//Checking User sign Type
 Util.checkAccountType = (req, res, next) => {
+  if (!req || !res || !res.locals) {
+    throw new Error("checkAccountType middleware called incorrectly.");
+  }
+
   if (!res.locals.accountData) {
-    req.flash("notice", "You are not logged in.");
+    req.flash("notice", "Failed try again.");
     return res.redirect("/account/login");
   }
-  if (res.locals.accountData.account_type == "Employee" ||
-    res.locals.accountData.account_type == "Admin"
+
+  if (
+    res.locals.accountData.account_type === "Employee" ||
+    res.locals.accountData.account_type === "Admin"
   ) {
-    next();
+    return next();
   } else {
     req.flash("notice", "You are not authorized to view this page.");
     return res.redirect("/account/login");
   }
 };
- 
+
 
 //Checking User sign Type
 Util.checkAccountTypeIsAdmin = (req, res, next) => {
@@ -187,6 +191,8 @@ Util.checkAccountTypeIsAdmin = (req, res, next) => {
   }
 };
 
+
+//Check if sign in is Admin
 Util.checkAccountTypeIsEmployee = (req, res, next) => {
   if (!req || !res || !res.locals) {
     throw new Error("checkAccountType middleware called incorrectly.");
@@ -211,12 +217,32 @@ Util.checkAccountTypeIsUser = (req, res, next) => {
   }
 
   if (!res.locals.accountData) {
-    req.flash("notice", "You are not logged in.");
+    //req.flash("notice", "You are not logged in.");
     return res.redirect("/account/login");
   }
 
   next();
 };
 
+
+/*** Account_type Selection List */
+Util.buildAccountTypeList = async function (account_type = null) {
+  try {
+    const data = await accountModel.getAccountsByType();
+    let typeList = '<select name="type_id" id="typeList" required>';
+    typeList += "<option value=''>Choose Account Type</option>";
+
+    data.rows.forEach((row) => {
+      let selected = account_type && row.account_type === account_type ? " selected" : "";
+      typeList += `<option value="${row.account_type}"${selected}>${row.account_type}</option>`;
+    });
+
+    typeList += "</select>";
+    return typeList;
+  } catch (error) {
+    console.error("Error fetching account types:", error);
+    return "<p>Unable to load account types.</p>";
+  }
+};
 
 module.exports = Util
