@@ -7,17 +7,24 @@
 
 <%-messages() %>
 
-<h2>Account Management</h2>
+<div class="adminHomePage">
+  <div id="adminAccountPage">
+    <h2>Account Management</h2>
 
-<a id="addUser" style="margin-right: 7px;" href="/account/register">Add User</a><br><br>
-<a id="updateUser"  href="#">Update User</a><br><br>
-<a id="deleteUser" href="/account/delete">Delete User</a>
+    <a id="addUser" style="margin-right: 7px;" href="/account/register">Add User</a><br><br>
+    <a id="updateUser"  href="#">Update User</a><br><br>
+    <a id="deleteUser" href="/account/delete">Delete User</a>
+
+  </div>
 
 
-<br><br>
-<h2>Manage Inventory</h2>
-<a id="inventoryManagement" href="/inv">Inventory Management</a>
+  <div id="adminInvPage">
+    <h2>Manage Inventory</h2>
+    <a id="inventoryManagement" href="/inv">Inventory Management</a>  
+  </div>
+</div>
 
-<br><br><a href="/" style="margin-left: 20px;">Logout</a>
-
+ <div id="adminLogout">
+    <a href="/" style="margin-left: 20px;">Logout</a>
+  </div>
 

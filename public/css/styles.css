@@ -89,6 +89,25 @@ input:required:valid {
   #regForm input{
     width: 100%;
   }
+
+  /*Admin Page */
+  .adminHomePage {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px
+  }
+
+  #adminAccountPage {
+    grid-column: 1;
+    background-color: rgb(255, 153, 0);
+  }
+
+  #adminInvPage {
+    grid-column: 3;
+    background-color: blue;
+  }
+
+ 
 }
 
 
