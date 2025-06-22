@@ -96,7 +96,9 @@ input:required:valid {
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px
   }
-
+  .adminHomePage h2 {
+    text-align: center;
+  }
   #adminAccountPage {
     grid-column: 1;
     background-color: rgb(255, 153, 0);
@@ -104,10 +106,17 @@ input:required:valid {
 
   #adminInvPage {
     grid-column: 3;
-    background-color: blue;
+    background-color: rgb(172, 39, 119);
   }
 
- 
+ #adminLogout {
+  margin-left: 90%;
+ }
+
+ .adminHomePage a {
+  color: rgb(255, 255, 255);
+  margin-left: 50%;
+ }
 }
 
 
